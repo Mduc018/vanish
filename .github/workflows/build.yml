@@ -12,6 +12,9 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install pyinstaller
+      - name: Download missing AI models
+        run: |
+          python -c "import os, urllib.request; os.makedirs('models', exist_ok=True); urllib.request.urlretrieve('https://storage.googleapis.com/mediapipe-models/gesture_recognizer/gesture_recognizer/float16/1/gesture_recognizer.task', 'models/gesture_recognizer.task'); urllib.request.urlretrieve('https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_segmenter_landscape/float16/latest/selfie_segmenter_landscape.tflite', 'models/selfie_segmenter_landscape.tflite')"
       - name: Build EXE
         run: |
           pyinstaller VanishCam.spec
